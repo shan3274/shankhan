@@ -1,9 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import blogs from "../data/blogs"; // ✅ Importing from blogs.js
 
 // ✅ Reusable Blog Card Component
-const BlogCard = ({ title, excerpt, image, link }) => {
+const BlogCard = ({ title, excerpt, image, slug }) => {
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
@@ -16,44 +17,28 @@ const BlogCard = ({ title, excerpt, image, link }) => {
       />
       <h3 className="text-xl font-semibold text-black">{title}</h3>
       <p className="text-gray-600 mt-2">{excerpt}</p>
-      <Link
-        href={link}
-        className="text-blue-500 font-semibold mt-4 inline-block"
-      >
-        Read More →
-      </Link>
+
+      {/* ✅ Link ko conditionally render karo */}
+      {slug ? (
+        <Link
+          href={`/blog/${slug}`}
+          className="text-blue-500 font-semibold mt-4 inline-block"
+        >
+          Read More →
+        </Link>
+      ) : (
+        <span className="text-gray-400 italic mt-4 inline-block">
+          Coming Soon
+        </span>
+      )}
     </motion.div>
   );
 };
 
 // ✅ Blog Section
 const BlogPreview = () => {
-  const blogPosts = [
-    {
-      id: 1,
-      title: "How to Scale Your Freelance Business",
-      excerpt: "Learn the key strategies to grow your freelancing career...",
-      image:
-        "https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=600",
-      link: "/blog/how-to-scale-freelancing",
-    },
-    {
-      id: 2,
-      title: "Next.js vs React: Which One to Choose?",
-      excerpt: "A deep dive into the differences between Next.js and React...",
-      image:
-        "https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg?auto=compress&cs=tinysrgb&w=600",
-      link: "/blog/nextjs-vs-react",
-    },
-    {
-      id: 3,
-      title: "Mastering Spring Boot for Backend Development",
-      excerpt: "Spring Boot makes Java backend development easier than ever...",
-      image:
-        "https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=600",
-      link: "/blog/mastering-spring-boot",
-    },
-  ];
+  // ✅ Sirf Latest 3 Blogs Show Karne Ke Liye slice(0,3)
+  const latestBlogs = blogs.slice(0, 3);
 
   return (
     <section id="blog" className="py-16 bg-white text-black">
@@ -65,7 +50,7 @@ const BlogPreview = () => {
 
         {/* Blog Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post) => (
+          {latestBlogs?.map((post) => (
             <BlogCard key={post.id} {...post} />
           ))}
         </div>
