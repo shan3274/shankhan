@@ -1,48 +1,155 @@
 import Link from "next/link";
+import {
+  Code,
+  Smartphone,
+  Database,
+  Paintbrush,
+  ShoppingBag,
+  Search,
+  Cloud,
+  ShieldCheck,
+  Brain,
+  Server,
+  Network,
+} from "lucide-react";
+import Header from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Testimonials from "@/components/Testimonials";
 
-const servicesData = [
+const serviceIcons = {
+  Code,
+  Smartphone,
+  Database,
+  Paintbrush,
+  ShoppingBag,
+  Search,
+  Cloud,
+  ShieldCheck,
+  Brain,
+  Server,
+  Network,
+};
+
+const services = [
   {
     title: "Website Development",
     description:
-      "Custom frontend & backend solutions using React, Next.js, and modern web technologies.",
-    slug: "website-development",
+      "Build fast, scalable websites using React.js, Next.js, and Tailwind CSS.",
+    icon: "Code",
+    link: "/services/website-development",
   },
   {
-    title: "App Development",
-    description:
-      "Building scalable mobile & web apps with modern frameworks for seamless user experience.",
-    slug: "app-development",
+    title: "Mobile App Development",
+    description: "Develop cross-platform apps using React Native and Firebase.",
+    icon: "Smartphone",
+    link: "/services/mobile-app-development",
   },
   {
-    title: "Tech Consultation",
+    title: "Backend Development",
     description:
-      "Get expert guidance on projects, architecture, and best practices for your tech stack.",
-    slug: "tech-consultation",
+      "Secure and scalable backend using Java, Spring Boot, and Node.js.",
+    icon: "Database",
+    link: "/services/backend-development",
+  },
+  {
+    title: "UI/UX Design",
+    description:
+      "Beautiful and user-friendly designs using Figma and Adobe XD.",
+    icon: "Paintbrush",
+    link: "/services/ui-ux-design",
+  },
+  {
+    title: "E-commerce Solutions",
+    description: "Custom Shopify stores and full-stack e-commerce platforms.",
+    icon: "ShoppingBag",
+    link: "/services/ecommerce-solutions",
+  },
+  {
+    title: "SEO & Optimization",
+    description:
+      "Boost your website ranking and speed with SEO best practices.",
+    icon: "Search",
+    link: "/services/seo-optimization",
+  },
+  {
+    title: "Cloud Computing",
+    description:
+      "Deploy and manage applications using AWS, Azure, and Google Cloud.",
+    icon: "Cloud",
+    link: "/services/cloud-computing",
+  },
+  {
+    title: "Cybersecurity Solutions",
+    description: "Secure your web and mobile applications from cyber threats.",
+    icon: "ShieldCheck",
+    link: "/services/cybersecurity",
+  },
+  {
+    title: "AI & Machine Learning",
+    description:
+      "Build intelligent systems using Python, TensorFlow, and OpenAI.",
+    icon: "Brain",
+    link: "/services/ai-ml",
+  },
+  {
+    title: "Database Management",
+    description:
+      "Efficient database design and optimization using SQL and NoSQL.",
+    icon: "Server",
+    link: "/services/database-management",
+  },
+  {
+    title: "Custom API Development",
+    description:
+      "Build and integrate RESTful & GraphQL APIs for your applications.",
+    icon: "Network",
+    link: "/services/api-development",
   },
 ];
 
 const Services = () => {
   return (
-    <section className="bg-white py-16 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-gray-900">My Services</h2>
-        <p className="mt-4 text-gray-600">
-          Providing high-quality solutions tailored to your business needs.
-        </p>
+    <>
+      <Header />
+      <section className="bg-white text-black py-20">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h1 className="text-5xl font-extrabold text-gray-900">My Services</h1>
+          <p className="text-lg text-gray-700 mt-4">
+            I offer end-to-end solutions for web, mobile, and backend
+            development.
+          </p>
 
-        {/* 🔹 Services Cards */}
-        <div className="mt-10 grid md:grid-cols-3 gap-6">
-          {servicesData.map((service, index) => (
-            <Link key={index} href={`/services/${service.slug}`}>
-              <div className="bg-black/90 text-white p-6 rounded-xl shadow-lg border border-gray-700 transition-transform transform hover:scale-105 cursor-pointer">
-                <h3 className="mt-4 text-xl font-semibold">{service.title}</h3>
-                <p className="mt-2 text-gray-300">{service.description}</p>
-              </div>
-            </Link>
-          ))}
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+            {services.map((service, index) => {
+              const IconComponent = serviceIcons[service.icon];
+
+              return (
+                <Link key={index} href={service.link} className="group">
+                  <div className="p-6 bg-[#F4F7F8] text-gray-900 rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-105">
+                    <div className="mb-4">
+                      {IconComponent && (
+                        <IconComponent size={40} className="text-[#C9EADA]" />
+                      )}
+                    </div>
+                    <h3 className="text-xl font-semibold">{service.title}</h3>
+                    <p className="mt-2 text-gray-700">{service.description}</p>
+                    <span className="mt-4 inline-block text-[#2C7366] font-medium">
+                      Learn More →
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Testimonials Section */}
+      <Testimonials />
+
+      <Footer />
+    </>
   );
 };
 
